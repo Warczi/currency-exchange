@@ -1,41 +1,46 @@
-let money = document.querySelector(".js-money");
-let formElement = document.querySelector(".js-form");
-let select = document.querySelector(".js-form__select");
-let form__paragraphResult = document.querySelector(".js-form__paragraph--result");
-let form__paragraphCurrency = document.querySelector(".js-form__paragraph--currency");
-let buttonReset = document.querySelector("js-form__buttonReset");
-let buttonSubmit = document.querySelector("js-form__buttonSubmit");
-formElement.addEventListener("submit", (event) => {
-    event.preventDefault();
-    let finalResult = "Otrzymasz";
-    let moneyValue = money.value;
-    let selectValue = select.value;
-    let euroRate = 4.54;
-    let dolarRate = 3.79;
-    let funtRate = 5.24;
-    let jenRate = 0.035;
 
-    let result;
+const calculateResult = (selectValue, moneyValue) => {
+    const euroRate = 4.54;
+    const dolarRate = 3.79;
+    const funtRate = 5.24;
+    const jenRate = 0.035;
+
     switch (selectValue) {
-        case "euro":
-            result = (moneyValue / euroRate).toFixed(2);
-            form__paragraphResult.innerText = `${finalResult} ${result} euro.`;
-            break;
-        case "dolar":
-            result = (moneyValue / dolarRate).toFixed(2);
-            form__paragraphResult.innerText = `${finalResult} ${result} dolarów amerykańskch.`;
-            break;
-        case "funt":
-            result = (moneyValue / funtRate).toFixed(2);
-            form__paragraphResult.innerText = `${finalResult} ${result} funtów brytyjskich.`;
-            break;
-        case "jen":
-            result = (moneyValue / jenRate).toFixed(2);
-            form__paragraphResult.innerText = `${finalResult} ${result} jenów.`;
-            break;
-        default:
-            form__paragraphResult.innerText = "Nasze serwery są przeciążone, spróbuj ponownie za chwilę :)";
+        case "EURO":
+            return (moneyValue / euroRate).toFixed(2);
+
+        case "USD":
+            return (moneyValue / dolarRate).toFixed(2);
+
+        case "FUNTÓW":
+            return (moneyValue / funtRate).toFixed(2);
+
+        case "JENÓW":
+            return (moneyValue / jenRate).toFixed(2);
     }
-});
+};
+
+const onFormSubmit = (Event) =>{
+
+    Event.preventDefault();
+    const money = document.querySelector(".js-money");
+        const select = document.querySelector(".js-form__select");
+        const form__paragraphResult = document.querySelector(".js-form__paragraph--result");
+
+        const moneyValue = money.value;
+        const selectValue = select.value;
+
+        const result = calculateResult(selectValue, moneyValue);
+        
+        form__paragraphResult.innerHTML = ` Otrzymasz ${result} ${selectValue}`;
+
+};
+const init = () => {
+
+    const formElement = document.querySelector(".js-form");
+
+    formElement.addEventListener("submit", onFormSubmit ); 
+};
+init();
 
 console.log("Witam wszystkich deweloperów w moim skromnym kalkulatorze walut");
