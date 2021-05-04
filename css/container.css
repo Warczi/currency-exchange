@@ -1,6 +1,6 @@
-.container{
-  
-    font-family: 'Aref Ruqaa', serif;
-    margin: 5px 5px;
-   
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
 }
